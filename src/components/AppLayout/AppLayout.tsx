@@ -13,7 +13,6 @@ interface LayoutProps {
 }
 const AppLayout = ({ children }: LayoutProps) => {
   const [collapsed, setCollapsed] = useState(false);
-  const { isLoggedIn } = useRootState((state) => state.user);
 
   const onCollapse = useCallback(() => {
     setCollapsed((prev) => !prev);
