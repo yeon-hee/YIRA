@@ -22,7 +22,7 @@
 
 <div align="center">
 
-  <img width="1200" src="/docsImage/Skill2.png"/>
+ ![image](https://user-images.githubusercontent.com/59982366/156309266-fdd3a9f3-6464-47c6-9b02-36c79e27458d.png)
 
 </div>
 
