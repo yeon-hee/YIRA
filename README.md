@@ -3,8 +3,6 @@
 
 <div align="center">
 
-  <img height="200" src="docsImage/lottelogo.PNG"/>
-
 
 ![NodeJS](https://img.shields.io/badge/Node.js-v16.14.0-339933?logo=node.js&style=plastic)
 ![typescript](https://img.shields.io/badge/typescript-v4.3.5-007acc?logo=typescript&style=plastic)
