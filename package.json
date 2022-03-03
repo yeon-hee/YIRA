@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "cross-env NEXT_PUBLIC_ENV=local next dev",
+    "dev": "cross-env NEXT_PUBLIC_ENV=local next dev -p 3001",
     "build": "next build",
     "build:local": "cross-env NEXT_PUBLIC_ENV=local next build",
     "build:dev": "cross-env NEXT_PUBLIC_ENV=dev next build",
