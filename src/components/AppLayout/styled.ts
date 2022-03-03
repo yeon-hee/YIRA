@@ -1,35 +1,41 @@
 import styled from '@emotion/styled';
-import { Layout } from 'antd';
-const { Content, Footer } = Layout;
+import { Layout, Button } from 'antd';
+const { Content, Header, Footer } = Layout;
 
 export const LayoutWrapper = styled(Layout)`
-  min-height: 100vh;
+  height: 100%;
   .logo {
-    height: 32px;
-    margin: 16px;
-    background: rgba(255, 255, 255, 0.3);
+    float: left;
+    color: #0052cc;
+    font-size: 25px;
+    font-weight: bold;
+    margin-right: 40px;
   }
 
-  .site-layout .site-layout-background {
-    background: #fff;
-    padding: 0;
+  .ant-row-rtl .logo {
+    float: right;
+    margin: 16px 0 16px 24px;
   }
-`;
-
-export const ContentWrapper = styled(Content)`
-  margin: 0 16px;
-
-  .site-layout-main {
+  .site-layout-content {
+    height: 100%;
     padding: 24px;
   }
 `;
 
-export const FooterWrapper = styled(Footer)`
-  text-align: center;
+export const HeaderWrapper = styled(Header)`
+  background: white;
 `;
 
-export const MenuTitle = styled.div`
-  display: flex;
-  margin: 15px 0 10px 15px;
-  width: 110px;
+export const AddButton = styled(Button)`
+  background: #0052cc;
+  color: white;
+  border: none;
+`;
+
+export const ContentWrapper = styled(Content)`
+  padding: 0 50px;
+`;
+
+export const FooterWrapper = styled(Footer)`
+  text-align: center;
 `;

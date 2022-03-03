@@ -1,53 +1,47 @@
-import React, { useCallback, useState } from 'react';
-import { useRootState } from '@src/hooks/useRootState';
-import { Layout, Menu, Image } from 'antd';
+import React from 'react';
+import { Menu } from 'antd';
 import Link from 'next/link';
-import { PieChartOutlined, FileOutlined } from '@ant-design/icons';
-import { LayoutWrapper, ContentWrapper, FooterWrapper, MenuTitle } from './styled';
+import { FileOutlined, DesktopOutlined, TeamOutlined, PlusOutlined } from '@ant-design/icons';
+import { LayoutWrapper, ContentWrapper, FooterWrapper, AddButton, HeaderWrapper } from './styled';
 
-const { Header, Sider } = Layout;
 const { SubMenu } = Menu;
-
 interface LayoutProps {
   children: React.ReactNode;
 }
 const AppLayout = ({ children }: LayoutProps) => {
-  const [collapsed, setCollapsed] = useState(false);
-
-  const onCollapse = useCallback(() => {
-    setCollapsed((prev) => !prev);
-  }, []);
-
   return (
-    <LayoutWrapper>
-      <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
-        <MenuTitle>
-          <Image src="icons/logo.png"></Image>
-        </MenuTitle>
-        <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
-          <SubMenu key="sub1" icon={<FileOutlined />} title="일감 관리">
-            <Menu.Item key="1">
-              <Link href="/todos">일감 등록</Link>
-            </Menu.Item>
-            <Menu.Item key="2">일감 상세</Menu.Item>
-            <Menu.Item key="3">일감 보드</Menu.Item>
-            <Menu.Item key="4">일감 캘린더</Menu.Item>
+    <LayoutWrapper className="layout">
+      <HeaderWrapper>
+        <p className="logo">YIRA</p>
+        <Menu mode="horizontal" defaultSelectedKeys={['1']}>
+          <SubMenu key="SubMenu1" icon={<FileOutlined />} title="내 작업">
+            <Menu.ItemGroup title="해야 할 일">
+              <Menu.Item key="setting:1">일감 1</Menu.Item>
+              <Menu.Item key="setting:2">일감 2</Menu.Item>
+            </Menu.ItemGroup>
           </SubMenu>
-          <SubMenu key="sub2" icon={<PieChartOutlined />} title="프로젝트 관리">
-            <Menu.Item key="5">프로젝트 등록</Menu.Item>
-            <Menu.Item key="6">프로젝트 상세</Menu.Item>
-            <Menu.Item key="7">프로젝트 보드</Menu.Item>
-            <Menu.Item key="8">프로젝트 캘린더</Menu.Item>
+          <SubMenu key="SubMenu2" icon={<DesktopOutlined />} title="프로젝트">
+            <Menu.ItemGroup title="최근 항목">
+              <Menu.Item key="setting:3">프로젝트 1</Menu.Item>
+              <Menu.Item key="setting:4">프로젝트 2</Menu.Item>
+            </Menu.ItemGroup>
           </SubMenu>
+          <SubMenu key="SubMenu3" icon={<TeamOutlined />} title="사용자">
+            <Menu.ItemGroup title="내 공동 작업자">
+              <Menu.Item key="setting:5" icon={<PlusOutlined />}>
+                팀원 초대
+              </Menu.Item>
+            </Menu.ItemGroup>
+          </SubMenu>
+          <Menu.Item key="4">
+            <AddButton>만들기</AddButton>
+          </Menu.Item>
         </Menu>
-      </Sider>
-      <Layout className="site-layout">
-        <Header className="site-layout-background" />
-        <ContentWrapper>
-          <div className="site-layout-main">{children}</div>
-        </ContentWrapper>
-        <FooterWrapper>Ant Design ©2018 Created by Ant UED</FooterWrapper>
-      </Layout>
+      </HeaderWrapper>
+      <ContentWrapper>
+        <div className="site-layout-content">{children}</div>
+      </ContentWrapper>
+      <FooterWrapper>Ant Design ©2018 Created by Ant UED</FooterWrapper>
     </LayoutWrapper>
   );
 };
