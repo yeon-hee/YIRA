@@ -15,6 +15,7 @@
     "type-check": "tsc"
   },
   "dependencies": {
+    "@ant-design/icons": "^4.7.0",
     "@emotion/css": "^11.5.0",
     "@emotion/react": "^11.4.0",
     "@emotion/server": "^11.4.0",

@@ -1,7 +1,7 @@
 import React from 'react';
 
-const todos = () => {
+const Todos = () => {
   return <>일감 등록 페이지</>;
 };
 
-export default todos;
+export default Todos;

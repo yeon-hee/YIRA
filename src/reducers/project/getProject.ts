@@ -1,9 +1,14 @@
 import { IProjectProps } from '@src/types/project';
 
 export const ADD_PROJECT = 'ADD_PROJECT' as const;
+export const DEL_PROJECT = 'DEL_PROJECT' as const;
 
 export interface AddProject {
   type: typeof ADD_PROJECT;
+  data: IProjectProps;
+}
+export interface DelProject {
+  type: typeof DEL_PROJECT;
   data: IProjectProps;
 }
 
@@ -12,4 +17,9 @@ export const addProject = (data: IProjectProps): AddProject => ({
   data,
 });
 
-export type GetProject = ReturnType<typeof addProject>;
+export const delProject = (data: IProjectProps): DelProject => ({
+  type: DEL_PROJECT,
+  data,
+});
+
+export type GetProject = ReturnType<typeof addProject> | ReturnType<typeof delProject>;
