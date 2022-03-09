@@ -24,17 +24,34 @@ const AppLayout = ({ children }: LayoutProps) => {
             </Menu.ItemGroup>
           </SubMenu>
           <SubMenu key="SubMenu2" icon={<DesktopOutlined />} title="프로젝트">
-            <Menu.ItemGroup title="최근 항목">
-              {project.map((p) => (
-                <Menu.Item key={`setting:${p.id}`}>
-                  <Link href={`/project/${p.id}`}>{p.pname}</Link>
-                </Menu.Item>
-              ))}
+            {project.length > 0 ? (
+              <Menu.ItemGroup title="최근 항목">
+                {project.map((p, dataIndex) => {
+                  // console.log(dataIndex);
+                  if (dataIndex < 3) {
+                    return (
+                      <Menu.Item key={`setting: ${p.id}`}>
+                        <Link
+                          href="#"
+                          //  {`/project/${p.id}`}
+                        >
+                          {p.pname}
+                        </Link>
+                      </Menu.Item>
+                    );
+                  }
+                })}
+              </Menu.ItemGroup>
+            ) : null}
+            <Menu.ItemGroup title="프로젝트 관리">
               <Menu.Item key="setting:3">
-                <Link href="/project/add">프로젝트 등록</Link>
+                <Link href="/project/board">프로젝트 보드</Link>
               </Menu.Item>
               <Menu.Item key="setting:4">
                 <Link href="/project/list">프로젝트 목록</Link>
+              </Menu.Item>
+              <Menu.Item key="setting:6">
+                <Link href="/project/add">프로젝트 등록</Link>
               </Menu.Item>
             </Menu.ItemGroup>
           </SubMenu>

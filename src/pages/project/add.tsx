@@ -111,7 +111,17 @@ const ProjectAdd = () => {
 
   const onFinishAdd = useCallback(() => {
     dispatch(
-      addProject({ id: Date.now(), pname, desc, startDate, endDate, leader, teammates, status: PROJECT_STATUS.TODO }),
+      addProject({
+        id: Date.now(),
+        pname,
+        desc,
+        startDate,
+        endDate,
+        leader,
+        teammates,
+        status: PROJECT_STATUS.TODO,
+        creator: '',
+      }),
     );
     form.resetFields();
     setTeammates([]);

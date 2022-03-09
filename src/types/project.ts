@@ -7,6 +7,7 @@ export interface IProjectProps {
   leader: string;
   teammates: string[];
   status: PROJECT_STATUS;
+  creator: string;
 }
 export const PROJECT_STATUS = {
   TODO: 'TODO',

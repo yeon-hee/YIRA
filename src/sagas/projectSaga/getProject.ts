@@ -1,5 +1,11 @@
 import { put, takeLatest } from 'redux-saga/effects';
-import { addProject, ADD_PROJECT, delProject, DEL_PROJECT } from '@src/reducers/project/getProject';
+import {
+  addProject,
+  ADD_PROJECT,
+  delProject,
+  DEL_PROJECT,
+  UPDATE_STATUS_PROJECT,
+} from '@src/reducers/project/getProject';
 
 function* project(action: ReturnType<typeof delProject> | ReturnType<typeof addProject>) {
   try {
@@ -9,6 +15,10 @@ function* project(action: ReturnType<typeof delProject> | ReturnType<typeof addP
     });
     yield put({
       type: ADD_PROJECT,
+      data: action.data,
+    });
+    yield put({
+      type: UPDATE_STATUS_PROJECT,
       data: action.data,
     });
   } catch (err) {
@@ -21,7 +31,7 @@ function* project(action: ReturnType<typeof delProject> | ReturnType<typeof addP
 }
 
 function* watchLoadUsers() {
-  yield takeLatest([ADD_PROJECT, DEL_PROJECT], project);
+  yield takeLatest([ADD_PROJECT, DEL_PROJECT, UPDATE_STATUS_PROJECT], project);
 }
 
 export default watchLoadUsers;
