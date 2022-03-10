@@ -17,7 +17,6 @@ const LoginForm = () => {
   const [id, setId] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const dispatch = useDispatch();
-  const { isLoggedIn } = useRootState((state) => state.user);
 
   const onChangeId = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setId(e.target.value);
