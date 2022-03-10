@@ -1,8 +1,8 @@
 import React from 'react';
-import Todos from './todos';
+import TaskMain from './taskMain';
 
 const Home = () => {
-  return <Todos />;
+  return <TaskMain />;
 };
 
 export default Home;

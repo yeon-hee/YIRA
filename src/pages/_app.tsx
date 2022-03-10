@@ -8,7 +8,7 @@ import { globalStyles } from '@theme/globalStyle';
 import theme from '@theme/.';
 import wrapper from '@store/configureStore';
 type AppProps = AppInitialProps;
-import AppLayout from '@src/components/AppLayout/AppLayout';
+import AppLayout from '@src/components/AppLayout';
 
 class Page extends App<AppProps> {
   render() {
