@@ -1,8 +1,9 @@
-import React from 'react';
-import { Menu } from 'antd';
+import React, { useCallback, useState } from 'react';
+import { Menu, Button } from 'antd';
 import Link from 'next/link';
 import { FileOutlined, DesktopOutlined, TeamOutlined, PlusOutlined } from '@ant-design/icons';
-import { LayoutWrapper, ContentWrapper, FooterWrapper, AddButton, HeaderWrapper } from './styled';
+import { LayoutWrapper, ContentSection, FooterSection, HeaderSection } from './styled';
+import TaskModal from '../TaskAdd/TaskModal';
 import { useRootState } from '@src/hooks/useRootState';
 
 const { SubMenu } = Menu;
@@ -11,12 +12,24 @@ interface LayoutProps {
 }
 const AppLayout = ({ children }: LayoutProps) => {
   const { project } = useRootState((state) => state.project);
+  const [current, setCurrent] = useState<string>('SubMenu1');
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+
+  const onClickMenu = useCallback((e) => {
+    setCurrent(e.key);
+  }, []);
+
+  const onClickModal = useCallback(() => {
+    setIsModalVisible(true);
+  }, []);
 
   return (
     <LayoutWrapper className="layout">
-      <HeaderWrapper>
-        <p className="logo">YIRA</p>
-        <Menu mode="horizontal" defaultSelectedKeys={['1']}>
+      <HeaderSection>
+        <p className="logo">
+          <Link href="/taskMain">YIRA</Link>
+        </p>
+        <Menu mode="horizontal" onClick={onClickMenu} selectedKeys={[current]} defaultSelectedKeys={['1']}>
           <SubMenu key="SubMenu1" icon={<FileOutlined />} title="내 작업">
             <Menu.ItemGroup title="해야 할 일">
               <Menu.Item key="setting:1">일감 1</Menu.Item>
@@ -63,14 +76,17 @@ const AppLayout = ({ children }: LayoutProps) => {
             </Menu.ItemGroup>
           </SubMenu>
           <Menu.Item key="4">
-            <AddButton>만들기</AddButton>
+            <Button type="primary" onClick={onClickModal}>
+              만들기
+            </Button>
+            <TaskModal visible={isModalVisible} setIsModalVisible={setIsModalVisible} />
           </Menu.Item>
         </Menu>
-      </HeaderWrapper>
-      <ContentWrapper>
+      </HeaderSection>
+      <ContentSection>
         <div className="site-layout-content">{children}</div>
-      </ContentWrapper>
-      <FooterWrapper>Ant Design ©2018 Created by Ant UED</FooterWrapper>
+      </ContentSection>
+      <FooterSection>Ant Design ©2018 Created by Ant UED</FooterSection>
     </LayoutWrapper>
   );
 };

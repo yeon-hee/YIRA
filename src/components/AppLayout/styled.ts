@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Layout, Button } from 'antd';
+import { Layout, Button, Modal } from 'antd';
 const { Content, Header, Footer } = Layout;
 
 export const LayoutWrapper = styled(Layout)`
@@ -20,22 +20,30 @@ export const LayoutWrapper = styled(Layout)`
     height: 100%;
     padding: 24px;
   }
+
+  .ant-layout-content {
+    background: white;
+  }
+
+  .ant-tabs-tab {
+    font-size: 16px;
+  }
+
+  .ant-menu {
+    background: none;
+  }
 `;
 
-export const HeaderWrapper = styled(Header)`
+export const HeaderSection = styled(Header)`
   background: white;
+
+  border-bottom: 2px solid #f0f0f0;
 `;
 
-export const AddButton = styled(Button)`
-  background: #0052cc;
-  color: white;
-  border: none;
-`;
-
-export const ContentWrapper = styled(Content)`
+export const ContentSection = styled(Content)`
   padding: 0 50px;
 `;
 
-export const FooterWrapper = styled(Footer)`
+export const FooterSection = styled(Footer)`
   text-align: center;
 `;

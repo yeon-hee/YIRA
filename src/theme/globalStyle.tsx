@@ -62,10 +62,6 @@ export const globalStyles = (
           outline: none;
         }
       }
-
-      .site-layout .site-layout-background {
-        background: #fff;
-      }
     `}
   />
 );
