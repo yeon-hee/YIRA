@@ -1,13 +1,13 @@
 type ModuleProps = {
   pname: string;
-  desc: string;
+  leader: string;
 };
-const ProjectModule = ({ pname, desc }: ModuleProps) => {
+const ProjectModule = ({ pname, leader }: ModuleProps) => {
   return (
     <>
       <div className="module">
         <div className="pname">{pname}</div>
-        <div className="desc">{desc}</div>
+        <div className="leader">{leader}</div>
       </div>
 
       <style jsx>
