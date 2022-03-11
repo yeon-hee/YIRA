@@ -16,6 +16,7 @@ const ProjectModule = ({ pname, leader }: ModuleProps) => {
             padding: 15px;
             border-radius: 5px;
             background-color: white;
+            box-shadow: 1px 1px 5px #bfbfbf;
           }
           .pname {
             margin-bottom: 15px;

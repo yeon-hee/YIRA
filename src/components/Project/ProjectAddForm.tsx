@@ -5,11 +5,13 @@ import { CloseSquareOutlined } from '@ant-design/icons';
 import { useRootState } from '@src/hooks/useRootState';
 import { PROJECT_STATUS } from '@src/types/project';
 import { addProjectRequest } from '@src/reducers/project/addProject';
+import { AddProjectType } from './ProjectAddModal';
 
 const layout = {
-  labelCol: { span: 8 },
-  wrapperCol: { span: 8 },
+  labelCol: { span: 6 },
+  wrapperCol: { span: 15 },
 };
+
 const tailLayout = {
   wrapperCol: { offset: 8, span: 8 },
 };
@@ -24,7 +26,7 @@ const formatDate = (date: string) => {
   return [year, month, day].join('-');
 };
 
-const ProjectAdd = () => {
+const ProjectAddForm = ({ visible, setIsModalVisible }: AddProjectType) => {
   const [pname, setPname] = useState<string>('');
   const [desc, setDesc] = useState<string>('');
   const [startDate, setStartDate] = useState<string>('');
@@ -140,11 +142,11 @@ const ProjectAdd = () => {
     );
     form.resetFields();
     setTeammates([]);
+    setIsModalVisible(false);
   }, [pname, form, dispatch, desc, startDate, endDate, leader, teammates]);
 
   return (
     <>
-      <h2>프로젝트 생성</h2>
       <Form
         {...layout}
         form={form}
@@ -168,8 +170,18 @@ const ProjectAdd = () => {
           <Input value={leader} onChange={onChangeLeader} required />
         </Form.Item>
         <Form.Item label="팀원" name="teammate" rules={[{ validator: validateTeammate }]}>
-          <Input placeholder="e-mail 입력" value={teammate} onChange={onChangeTeammate} onKeyPress={onEnterTeammates} />
-          <Button onClick={onClickTeammates}>+</Button>
+          <Input.Group compact>
+            <Input
+              style={{ width: 'calc(100% - 50px)' }}
+              placeholder="e-mail 입력"
+              value={teammate}
+              onChange={onChangeTeammate}
+              onKeyPress={onEnterTeammates}
+            />
+            <Button style={{ width: '50px' }} type="primary" onClick={onClickTeammates}>
+              +
+            </Button>
+          </Input.Group>
         </Form.Item>
         <Form.Item {...tailLayout}>
           <div>
@@ -208,4 +220,4 @@ const ProjectAdd = () => {
   );
 };
 
-export default ProjectAdd;
+export default ProjectAddForm;

@@ -7,36 +7,26 @@ import { useDispatch } from 'react-redux';
 
 const ProjectDetail = () => {
   const dispatch = useDispatch();
+  const { project } = useRootState((state) => state.project);
 
   // useEffect(() => {
   //   dispatch(loadProjectRequest());
   // }, [dispatch]);
-
-  const { project } = useRootState((state) => state.project);
 
   const [todoList, setTodoList] = useState<IProjectProps[]>(project.filter((pro) => pro.status == PROJECT_STATUS.TODO));
   const [doingList, setDoingList] = useState<IProjectProps[]>(
     project.filter((pro) => pro.status == PROJECT_STATUS.DOING),
   );
   const [doneList, setDoneList] = useState<IProjectProps[]>(project.filter((pro) => pro.status == PROJECT_STATUS.DONE));
-
   const [pick, setPick] = useState<IProjectProps>();
 
   const onDragStart = useCallback((pro) => {
     console.log(pro);
     setPick(pro);
   }, []);
-
   const onDragOver = useCallback((event) => {
     event.preventDefault();
   }, []);
-
-  useEffect(() => {
-    setTodoList(project.filter((p) => p.status == PROJECT_STATUS.TODO));
-    setDoingList(project.filter((p) => p.status == PROJECT_STATUS.DOING));
-    setDoneList(project.filter((p) => p.status == PROJECT_STATUS.DONE));
-  }, [project]);
-
   const onDrop = useCallback(
     (status) => {
       console.log(status);
@@ -44,6 +34,12 @@ const ProjectDetail = () => {
     },
     [dispatch, pick],
   );
+
+  useEffect(() => {
+    setTodoList(project.filter((p) => p.status == PROJECT_STATUS.TODO));
+    setDoingList(project.filter((p) => p.status == PROJECT_STATUS.DOING));
+    setDoneList(project.filter((p) => p.status == PROJECT_STATUS.DONE));
+  }, [project]);
 
   return (
     <>
@@ -134,7 +130,7 @@ const ProjectDetail = () => {
           </div>
         </div>
       </div>
-
+      {project.length == 0 ? <div>No Project</div> : null}
       <style jsx>{`
         .title {
           padding: 10px 0 10px 0;

@@ -5,6 +5,7 @@ import { FileOutlined, DesktopOutlined, TeamOutlined, PlusOutlined } from '@ant-
 import { LayoutWrapper, ContentSection, FooterSection, HeaderSection } from './styled';
 import TaskModal from '../TaskAdd/TaskModal';
 import { useRootState } from '@src/hooks/useRootState';
+import ProjectAddModal from '../Project/ProjectAddModal';
 
 const { SubMenu } = Menu;
 interface LayoutProps {
@@ -14,6 +15,7 @@ const AppLayout = ({ children }: LayoutProps) => {
   const { project } = useRootState((state) => state.project);
   const [current, setCurrent] = useState<string>('SubMenu1');
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+  const [isAddProjectVisible, setIsAddProjectVisible] = useState<boolean>(false);
 
   const onClickMenu = useCallback((e) => {
     setCurrent(e.key);
@@ -21,6 +23,10 @@ const AppLayout = ({ children }: LayoutProps) => {
 
   const onClickModal = useCallback(() => {
     setIsModalVisible(true);
+  }, []);
+
+  const onClickAddProject = useCallback(() => {
+    setIsAddProjectVisible(true);
   }, []);
 
   return (
@@ -43,7 +49,7 @@ const AppLayout = ({ children }: LayoutProps) => {
                   // console.log(dataIndex);
                   if (dataIndex < 3) {
                     return (
-                      <Menu.Item key={`setting: ${p.id}`}>
+                      <Menu.Item key={`project: ${p.id}`}>
                         <Link
                           href="#"
                           //  {`/project/${p.id}`}
@@ -57,14 +63,17 @@ const AppLayout = ({ children }: LayoutProps) => {
               </Menu.ItemGroup>
             ) : null}
             <Menu.ItemGroup title="프로젝트 관리">
-              <Menu.Item key="setting:3">
+              <Menu.Item key="project:1">
                 <Link href="/project/board">프로젝트 보드</Link>
               </Menu.Item>
-              <Menu.Item key="setting:4">
+              <Menu.Item key="project:2">
                 <Link href="/project/list">프로젝트 목록</Link>
               </Menu.Item>
-              <Menu.Item key="setting:6">
-                <Link href="/project/add">프로젝트 등록</Link>
+              <Menu.Item key="project:3">
+                <Link href="">
+                  <span onClick={onClickAddProject}>프로젝트 생성</span>
+                </Link>
+                <ProjectAddModal visible={isAddProjectVisible} setIsModalVisible={setIsAddProjectVisible} />
               </Menu.Item>
             </Menu.ItemGroup>
           </SubMenu>
