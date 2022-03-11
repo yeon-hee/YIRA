@@ -1,37 +1,34 @@
 import { put, takeLatest } from 'redux-saga/effects';
-import {
-  addProject,
-  ADD_PROJECT,
-  delProject,
-  DEL_PROJECT,
-  UPDATE_STATUS_PROJECT,
-} from '@src/reducers/project/getProject';
+import { LOAD_PROJECT_SUCCESS, LOAD_PROJECT_FAILURE, LOAD_PROJECT_REQUEST } from '@src/reducers/project/getProject';
 
-function* project(action: ReturnType<typeof delProject> | ReturnType<typeof addProject>) {
+import { dummyProject } from '@src/dummyData/project';
+import { useRootState } from '@src/hooks/useRootState';
+import { IProjectProps } from '@src/types/project';
+
+function LoadProjectAPI(): IProjectProps[] {
+  console.log('load project api');
+  const { project } = useRootState((state) => state.project);
+  return project;
+
+  //  dummyProject;
+}
+
+function* getProject() {
   try {
+    const res = LoadProjectAPI();
     yield put({
-      type: DEL_PROJECT,
-      data: action.data,
-    });
-    yield put({
-      type: ADD_PROJECT,
-      data: action.data,
-    });
-    yield put({
-      type: UPDATE_STATUS_PROJECT,
-      data: action.data,
+      type: LOAD_PROJECT_SUCCESS,
+      data: res,
     });
   } catch (err) {
-    console.log(err);
-    // yield put({
-    //   type: LOG_IN_FAILURE,
-    //   data: err as string,
-    // });
+    yield put({
+      type: LOAD_PROJECT_FAILURE,
+      data: err as string,
+    });
   }
 }
 
-function* watchLoadUsers() {
-  yield takeLatest([ADD_PROJECT, DEL_PROJECT, UPDATE_STATUS_PROJECT], project);
+function* watchGetProject() {
+  yield takeLatest(LOAD_PROJECT_REQUEST, getProject);
 }
-
-export default watchLoadUsers;
+export default watchGetProject;

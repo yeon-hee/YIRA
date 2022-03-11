@@ -1,9 +1,10 @@
 import { CloseSquareOutlined } from '@ant-design/icons';
 import { useRootState } from '@src/hooks/useRootState';
-import { delProject, updateStatusProject } from '@src/reducers/project/getProject';
+import { loadProjectRequest } from '@src/reducers/project/getProject';
+import { updateProjectRequest } from '@src/reducers/project/updateProject';
 import { IProjectProps, PROJECT_STATUS } from '@src/types/project';
 import { Popconfirm, Space, Table } from 'antd';
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 /*
@@ -18,8 +19,6 @@ import { useDispatch } from 'react-redux';
 */
 
 const ProjectDetail = () => {
-  const { project } = useRootState((state) => state.project);
-
   const columns = [
     {
       title: '프로젝트명 ',
@@ -99,9 +98,15 @@ const ProjectDetail = () => {
       ),
     },
   ];
-  const dataSource = project;
 
   const dispatch = useDispatch();
+  // useEffect(() => {
+  //   dispatch(loadProjectRequest());
+  // }, [dispatch]);
+
+  const { project } = useRootState((state) => state.project);
+
+  const dataSource = project;
 
   const onDeleteProject = useCallback(
     (record: IProjectProps) => {
@@ -112,7 +117,22 @@ const ProjectDetail = () => {
   );
   const onChangeStatus = useCallback(
     (record: IProjectProps) => {
-      dispatch(updateStatusProject(record));
+      let status: PROJECT_STATUS = PROJECT_STATUS.TODO;
+      switch (record.status) {
+        case PROJECT_STATUS.TODO:
+          status = PROJECT_STATUS.DOING;
+          break;
+        case PROJECT_STATUS.DOING:
+          status = PROJECT_STATUS.DONE;
+          break;
+        case PROJECT_STATUS.DONE:
+          status = PROJECT_STATUS.TODO;
+          break;
+
+        default:
+          break;
+      }
+      dispatch(updateProjectRequest({ project: record, modified: '', status }));
     },
     [dispatch],
   );

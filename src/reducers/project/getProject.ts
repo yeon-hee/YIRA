@@ -1,37 +1,36 @@
 import { IProjectProps } from '@src/types/project';
 
-export const ADD_PROJECT = 'ADD_PROJECT' as const;
-export const DEL_PROJECT = 'DEL_PROJECT' as const;
-export const UPDATE_STATUS_PROJECT = 'UPDATE_STATUS_PROJECT' as const;
+export const LOAD_PROJECT_FAILURE = 'LOAD_PROJECT_FAILURE' as const;
+export const LOAD_PROJECT_SUCCESS = 'LOAD_PROJECT_SUCCESS' as const;
+export const LOAD_PROJECT_REQUEST = 'LOAD_PROJECT_REQUEST' as const;
 
-export interface AddProject {
-  type: typeof ADD_PROJECT;
-  data: IProjectProps;
-}
-export interface DelProject {
-  type: typeof DEL_PROJECT;
-  data: IProjectProps;
-}
-export interface UpdateStatusProject {
-  type: typeof UPDATE_STATUS_PROJECT;
-  data: IProjectProps;
+export interface LoadProjectRequest {
+  type: typeof LOAD_PROJECT_REQUEST;
 }
 
-export const addProject = (data: IProjectProps): AddProject => ({
-  type: ADD_PROJECT,
+export interface LoadProjectSuccess {
+  type: typeof LOAD_PROJECT_SUCCESS;
+  data: IProjectProps[];
+}
+
+export interface LoadProjectFailure {
+  type: typeof LOAD_PROJECT_FAILURE;
+}
+
+export const loadProjectRequest = (): LoadProjectRequest => ({
+  type: LOAD_PROJECT_REQUEST,
+});
+
+export const loadProjectSuccess = (data: IProjectProps[]): LoadProjectSuccess => ({
+  type: LOAD_PROJECT_SUCCESS,
   data,
 });
 
-export const delProject = (data: IProjectProps): DelProject => ({
-  type: DEL_PROJECT,
-  data,
-});
-export const updateStatusProject = (data: IProjectProps): UpdateStatusProject => ({
-  type: UPDATE_STATUS_PROJECT,
-  data,
+export const loadProjectFailure = (): LoadProjectFailure => ({
+  type: LOAD_PROJECT_FAILURE,
 });
 
-export type GetProject =
-  | ReturnType<typeof addProject>
-  | ReturnType<typeof delProject>
-  | ReturnType<typeof updateStatusProject>;
+export type getProject =
+  | ReturnType<typeof loadProjectRequest>
+  | ReturnType<typeof loadProjectSuccess>
+  | ReturnType<typeof loadProjectFailure>;

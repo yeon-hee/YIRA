@@ -1,11 +1,17 @@
+import ProjectModule from '@src/components/Project/ProjectModule';
 import { useRootState } from '@src/hooks/useRootState';
-import { updateStatusProject } from '@src/reducers/project/getProject';
+import { updateProjectRequest } from '@src/reducers/project/updateProject';
 import { IProjectProps, PROJECT_STATUS } from '@src/types/project';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 const ProjectDetail = () => {
   const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   dispatch(loadProjectRequest());
+  // }, [dispatch]);
+
   const { project } = useRootState((state) => state.project);
 
   const [todoList, setTodoList] = useState<IProjectProps[]>(project.filter((pro) => pro.status == PROJECT_STATUS.TODO));
@@ -25,29 +31,32 @@ const ProjectDetail = () => {
     event.preventDefault();
   }, []);
 
+  useEffect(() => {
+    setTodoList(project.filter((p) => p.status == PROJECT_STATUS.TODO));
+    setDoingList(project.filter((p) => p.status == PROJECT_STATUS.DOING));
+    setDoneList(project.filter((p) => p.status == PROJECT_STATUS.DONE));
+  }, [project]);
+
   const onDrop = useCallback(
     (status) => {
-      dispatch(updateStatusProject(pick!)); // 이거 안됨... <- 이거 pick, status 같이 보낼 수 있게 해야함..!
-      setTimeout(() => {
-        setTodoList(project.filter((p) => p.status == PROJECT_STATUS.TODO));
-        setDoingList(project.filter((p) => p.status == PROJECT_STATUS.DOING));
-        setDoneList(project.filter((p) => p.status == PROJECT_STATUS.DONE));
-      }, 1000);
+      console.log(status);
+      dispatch(updateProjectRequest({ project: pick!, status, modified: '' }));
     },
-    [dispatch, pick, project],
+    [dispatch, pick],
   );
 
   return (
     <>
-      <div className="example-parent">
+      <div className="parent">
         <div
-          className="TODO"
+          className="TODO board"
           onDragOver={onDragOver}
           onDrop={() => {
             onDrop(PROJECT_STATUS.TODO);
           }}
         >
           <div>
+            <div className="title">TODO</div>
             {todoList.length
               ? todoList.map((p) => {
                   return (
@@ -57,22 +66,25 @@ const ProjectDetail = () => {
                         onDragStart(p);
                       }}
                       key={p.id}
+                      className="project"
                     >
-                      {p.pname}
+                      <ProjectModule key={p.id} pname={p.pname} desc={p.desc} />
                     </div>
                   );
                 })
               : null}
           </div>
         </div>
+
         <div
-          className="DOING"
+          className="DOING board"
           onDragOver={onDragOver}
           onDrop={() => {
             onDrop(PROJECT_STATUS.DOING);
           }}
         >
           <div>
+            <div className="title">DOING</div>
             {doingList.length
               ? doingList.map((p) => {
                   return (
@@ -82,8 +94,12 @@ const ProjectDetail = () => {
                         onDragStart(p);
                       }}
                       key={p.id}
+                      className="project DOING"
                     >
-                      {p.pname}
+                      <ProjectModule key={p.id} pname={p.pname} desc={p.desc} />
+
+                      {/* {p.pname}
+                      {p.desc} */}
                     </div>
                   );
                 })
@@ -91,13 +107,15 @@ const ProjectDetail = () => {
           </div>
         </div>
         <div
-          className="DONE"
+          className="DONE board"
           onDragOver={onDragOver}
           onDrop={() => {
             onDrop(PROJECT_STATUS.DONE);
           }}
         >
           <div>
+            <div className="title">DONE</div>
+
             {doneList.length
               ? doneList.map((p) => {
                   return (
@@ -107,8 +125,9 @@ const ProjectDetail = () => {
                         onDragStart(p);
                       }}
                       key={p.id}
+                      className="project"
                     >
-                      {p.pname}
+                      <ProjectModule key={p.id} pname={p.pname} desc={p.desc} />
                     </div>
                   );
                 })
@@ -118,39 +137,47 @@ const ProjectDetail = () => {
       </div>
 
       <style jsx>{`
-        .example-parent {
-          border: 2px solid #dfa612;
-          color: black;
+        .title {
+          padding: 10px 0 10px 0;
+          font-size: 15px;
+        }
+        .parent {
+          padding-top: 5%;
+          /* border: 2px solid gray; */
+          color: #0050b3;
           display: flex;
           font-family: sans-serif;
           font-weight: bold;
+          height: 80%;
+          width: 80%;
         }
 
-        .TODO {
+        .board {
+          background-color: #e6f7ff;
+          border-radius: 8px;
           flex-basis: 100%;
           flex-grow: 1;
           padding: 10px;
+          margin: 5px;
         }
-
-        .example-draggable {
-          background-color: #4aae9b;
-          font-weight: normal;
-          margin-bottom: 10px;
-          margin-top: 10px;
-          padding: 10px;
-        }
-
-        .DOING {
-          background-color: #6db65b;
+        /* .DOING {
+          border-radius: 10px;
+          border: 2px solid gray;
           flex-basis: 100%;
           flex-grow: 1;
           padding: 10px;
         }
         .DONE {
-          background-color: #a26f5b;
+          border-radius: 10px;
+          border: 2px solid gray;
           flex-basis: 100%;
           flex-grow: 1;
           padding: 10px;
+        } */
+        .project {
+          margin: 8px 0 0 0;
+          font-size: 12px;
+          color: #434343;
         }
       `}</style>
     </>

@@ -1,10 +1,10 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Form, Input, Button, DatePicker } from 'antd';
-import { addProject } from '@src/reducers/project/getProject';
 import { CloseSquareOutlined } from '@ant-design/icons';
 import { useRootState } from '@src/hooks/useRootState';
 import { PROJECT_STATUS } from '@src/types/project';
+import { addProjectRequest } from '@src/reducers/project/addProject';
 
 const layout = {
   labelCol: { span: 8 },
@@ -60,7 +60,7 @@ const ProjectAdd = () => {
     setTeammate(e.target.value.trim());
   }, []);
 
-  const onChangeTeammates = useCallback(
+  const onEnterTeammates = useCallback(
     (e: React.KeyboardEvent) => {
       if (e.key === 'Enter' && teammate != '') {
         const res = teammates.filter((t) => t == teammate);
@@ -70,10 +70,25 @@ const ProjectAdd = () => {
         }
         setTeammates([...teammates, teammate.trim()]);
         setTeammate('');
+        form.setFieldsValue({
+          teammate: '',
+        });
       }
     },
-    [teammate, teammates],
+    [form, teammate, teammates],
   );
+  const onClickTeammates = useCallback(() => {
+    const res = teammates.filter((t) => t == teammate);
+    if (res.length !== 0) {
+      setTeammate('');
+      return;
+    }
+    setTeammates([...teammates, teammate.trim()]);
+    setTeammate('');
+    form.setFieldsValue({
+      teammate: '',
+    });
+  }, [form, teammate, teammates]);
   const validateTeammate = useCallback(
     (_, value: string) => {
       if (teammates.filter((t) => t == value.trim()).length !== 0) return Promise.reject(new Error('중복된 팀원'));
@@ -111,7 +126,7 @@ const ProjectAdd = () => {
 
   const onFinishAdd = useCallback(() => {
     dispatch(
-      addProject({
+      addProjectRequest({
         id: Date.now(),
         pname,
         desc,
@@ -153,12 +168,8 @@ const ProjectAdd = () => {
           <Input value={leader} onChange={onChangeLeader} required />
         </Form.Item>
         <Form.Item label="팀원" name="teammate" rules={[{ validator: validateTeammate }]}>
-          <Input
-            placeholder="e-mail 입력"
-            value={teammate}
-            onChange={onChangeTeammate}
-            onKeyPress={onChangeTeammates}
-          />
+          <Input placeholder="e-mail 입력" value={teammate} onChange={onChangeTeammate} onKeyPress={onEnterTeammates} />
+          <Button onClick={onClickTeammates}>+</Button>
         </Form.Item>
         <Form.Item {...tailLayout}>
           <div>
