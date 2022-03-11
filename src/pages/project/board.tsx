@@ -68,7 +68,7 @@ const ProjectDetail = () => {
                       key={p.id}
                       className="project"
                     >
-                      <ProjectModule key={p.id} pname={p.pname} desc={p.desc} />
+                      <ProjectModule key={p.id} pname={p.pname} leader={p.leader} />
                     </div>
                   );
                 })
@@ -96,7 +96,7 @@ const ProjectDetail = () => {
                       key={p.id}
                       className="project DOING"
                     >
-                      <ProjectModule key={p.id} pname={p.pname} desc={p.desc} />
+                      <ProjectModule key={p.id} pname={p.pname} leader={p.leader} />
 
                       {/* {p.pname}
                       {p.desc} */}
@@ -115,7 +115,6 @@ const ProjectDetail = () => {
         >
           <div>
             <div className="title">DONE</div>
-
             {doneList.length
               ? doneList.map((p) => {
                   return (
@@ -127,7 +126,7 @@ const ProjectDetail = () => {
                       key={p.id}
                       className="project"
                     >
-                      <ProjectModule key={p.id} pname={p.pname} desc={p.desc} />
+                      <ProjectModule key={p.id} pname={p.pname} leader={p.leader} />
                     </div>
                   );
                 })
@@ -144,21 +143,21 @@ const ProjectDetail = () => {
         .parent {
           padding-top: 5%;
           /* border: 2px solid gray; */
-          color: #0050b3;
+          color: #595959;
           display: flex;
           font-family: sans-serif;
           font-weight: bold;
-          height: 80%;
-          width: 80%;
+          // height: 80%;
+          // width: 80%;
         }
 
         .board {
-          background-color: #e6f7ff;
-          border-radius: 8px;
+          background-color: #f5f5f5;
+          border-radius: 5px;
           flex-basis: 100%;
           flex-grow: 1;
           padding: 10px;
-          margin: 5px;
+          margin: 3px;
         }
         /* .DOING {
           border-radius: 10px;
