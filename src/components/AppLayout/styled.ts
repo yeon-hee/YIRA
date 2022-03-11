@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
-import { Layout, Button, Modal } from 'antd';
+import { Layout } from 'antd';
 const { Content, Header, Footer } = Layout;
 
-export const LayoutWrapper = styled(Layout)`
+export const LayoutSection = styled(Layout)`
   height: 100%;
   .logo {
     float: left;

@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { Card, Avatar, Col, Row } from 'antd';
+import { Card, Avatar } from 'antd';
 import { Header, ProjectHeader, ProjectSection, CardSection } from './styled';
 
 const { Meta } = Card;

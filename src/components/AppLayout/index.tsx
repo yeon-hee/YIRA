@@ -1,8 +1,8 @@
 import React, { useCallback, useState } from 'react';
-import { Menu, Button } from 'antd';
+import { Menu, Button, Layout } from 'antd';
 import Link from 'next/link';
 import { FileOutlined, DesktopOutlined, TeamOutlined, PlusOutlined } from '@ant-design/icons';
-import { LayoutWrapper, ContentSection, FooterSection, HeaderSection } from './styled';
+import { LayoutSection, ContentSection, FooterSection, HeaderSection } from './styled';
 import TaskModal from '../TaskAdd/TaskModal';
 
 const { SubMenu } = Menu;
@@ -22,7 +22,7 @@ const AppLayout = ({ children }: LayoutProps) => {
   }, []);
 
   return (
-    <LayoutWrapper className="layout">
+    <LayoutSection className="layout">
       <HeaderSection>
         <p className="logo">
           <Link href="/taskMain">YIRA</Link>
@@ -30,7 +30,9 @@ const AppLayout = ({ children }: LayoutProps) => {
         <Menu mode="horizontal" onClick={onClickMenu} selectedKeys={[current]} defaultSelectedKeys={['1']}>
           <SubMenu key="SubMenu1" icon={<FileOutlined />} title="내 작업">
             <Menu.ItemGroup title="해야 할 일">
-              <Menu.Item key="setting:1">일감 1</Menu.Item>
+              <Menu.Item key="setting:1">
+                <Link href="/taskBoard">일감 1</Link>
+              </Menu.Item>
               <Menu.Item key="setting:2">일감 2</Menu.Item>
             </Menu.ItemGroup>
           </SubMenu>
@@ -59,7 +61,7 @@ const AppLayout = ({ children }: LayoutProps) => {
         <div className="site-layout-content">{children}</div>
       </ContentSection>
       <FooterSection>Ant Design ©2018 Created by Ant UED</FooterSection>
-    </LayoutWrapper>
+    </LayoutSection>
   );
 };
 

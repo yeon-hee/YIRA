@@ -10,9 +10,12 @@ import wrapper from '@store/configureStore';
 type AppProps = AppInitialProps;
 import AppLayout from '@src/components/AppLayout';
 
+import { resetServerContext } from 'react-beautiful-dnd';
+
 class Page extends App<AppProps> {
   render() {
     const { Component } = this.props;
+    resetServerContext();
 
     return (
       <ThemeProvider theme={theme}>

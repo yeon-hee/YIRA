@@ -5,4 +5,13 @@ const Home = () => {
   return <TaskMain />;
 };
 
+export async function getServerSideProps() {
+  return {
+    redirect: {
+      destination: '/taskMain',
+      permanent: false,
+    },
+  };
+}
+
 export default Home;
