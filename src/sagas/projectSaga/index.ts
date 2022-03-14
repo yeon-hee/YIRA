@@ -1,8 +1,8 @@
 import { all, fork } from 'redux-saga/effects';
 import watchAddProject from './addProject';
-import watchGetProject from './getProject';
+import watchGetProjects from './getProjects';
 import watchUpdateProject from './updateProject';
 
 export default function* userSaga() {
-  yield all([fork(watchAddProject), fork(watchGetProject), fork(watchUpdateProject)]);
+  yield all([fork(watchAddProject), fork(watchGetProjects), fork(watchUpdateProject)]);
 }

@@ -1,6 +1,6 @@
 import { CloseSquareOutlined } from '@ant-design/icons';
 import { useRootState } from '@src/hooks/useRootState';
-import { loadProjectRequest } from '@src/reducers/project/getProject';
+import { loadProjectsRequest } from '@src/reducers/project/getProjects';
 import { updateProjectRequest } from '@src/reducers/project/updateProject';
 import { IProjectProps, PROJECT_STATUS } from '@src/types/project';
 import { Popconfirm, Space, Table } from 'antd';
