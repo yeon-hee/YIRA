@@ -1,5 +1,5 @@
 import { IProjectProps } from '@src/types/project';
-import { getProject, LOAD_PROJECT_FAILURE, LOAD_PROJECT_REQUEST, LOAD_PROJECT_SUCCESS } from './getProject';
+import { getProject, LOAD_PROJECTS_FAILURE, LOAD_PROJECTS_REQUEST, LOAD_PROJECTS_SUCCESS } from './getProjects';
 import produce from 'immer';
 import { addProject, ADD_PROJECT_FAILURE, ADD_PROJECT_REQUEST, ADD_PROJECT_SUCCESS } from './addProject';
 import { updateProject, UPDATE_PROJECT_FAILURE, UPDATE_PROJECT_REQUEST, UPDATE_PROJECT_SUCCESS } from './updateProject';
@@ -20,17 +20,17 @@ type ReducerAction = getProject | addProject | updateProject;
 export const project = (state: IProjectState = projectState, action: ReducerAction) => {
   return produce(state, (draft) => {
     switch (action.type) {
-      case LOAD_PROJECT_REQUEST:
+      case LOAD_PROJECTS_REQUEST:
         console.log('load project request');
         draft.isLoading = true;
         break;
-      case LOAD_PROJECT_SUCCESS:
+      case LOAD_PROJECTS_SUCCESS:
         draft.project = action.data;
         draft.isLoading = false;
         console.log('load project success');
         console.log(action.data);
         break;
-      case LOAD_PROJECT_FAILURE:
+      case LOAD_PROJECTS_FAILURE:
         draft.isLoading = false;
         console.log('load project failure');
         break;
